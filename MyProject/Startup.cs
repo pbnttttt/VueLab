@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace MyProject
 {
@@ -29,6 +30,7 @@ namespace MyProject
         {
             // Add framework services.
             services.AddMvc();
+            services.AddNodeServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +43,12 @@ namespace MyProject
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true
+                });
+
             }
             else
             {
