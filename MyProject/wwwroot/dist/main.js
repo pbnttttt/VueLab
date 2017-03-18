@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5a2445c3e79d100af32e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "890a833751d463a3a801"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -706,7 +706,7 @@
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(19)(__webpack_require__.s = 19);
+/******/ 	return hotCreateRequire(18)(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -907,6 +907,804 @@ module.exports = Html5Entities;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+
+new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
+    el: "#app",
+    data: {
+        name: "Max"
+    }
+});
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(__resourceQuery, module) {/*eslint-env browser*/
+/*global __resourceQuery __webpack_public_path__*/
+
+var options = {
+  path: "/__webpack_hmr",
+  timeout: 20 * 1000,
+  overlay: true,
+  reload: false,
+  log: true,
+  warn: true,
+  name: ''
+};
+if (true) {
+  var querystring = __webpack_require__(11);
+  var overrides = querystring.parse(__resourceQuery.slice(1));
+  if (overrides.path) options.path = overrides.path;
+  if (overrides.timeout) options.timeout = overrides.timeout;
+  if (overrides.overlay) options.overlay = overrides.overlay !== 'false';
+  if (overrides.reload) options.reload = overrides.reload !== 'false';
+  if (overrides.noInfo && overrides.noInfo !== 'false') {
+    options.log = false;
+  }
+  if (overrides.name) {
+    options.name = overrides.name;
+  }
+  if (overrides.quiet && overrides.quiet !== 'false') {
+    options.log = false;
+    options.warn = false;
+  }
+  if (overrides.dynamicPublicPath) {
+    options.path = __webpack_require__.p + options.path;
+  }
+}
+
+if (typeof window === 'undefined') {
+  // do nothing
+} else if (typeof window.EventSource === 'undefined') {
+  console.warn(
+    "webpack-hot-middleware's client requires EventSource to work. " +
+    "You should include a polyfill if you want to support this browser: " +
+    "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events#Tools"
+  );
+} else {
+  connect();
+}
+
+function EventSourceWrapper() {
+  var source;
+  var lastActivity = new Date();
+  var listeners = [];
+
+  init();
+  var timer = setInterval(function() {
+    if ((new Date() - lastActivity) > options.timeout) {
+      handleDisconnect();
+    }
+  }, options.timeout / 2);
+
+  function init() {
+    source = new window.EventSource(options.path);
+    source.onopen = handleOnline;
+    source.onerror = handleDisconnect;
+    source.onmessage = handleMessage;
+  }
+
+  function handleOnline() {
+    if (options.log) console.log("[HMR] connected");
+    lastActivity = new Date();
+  }
+
+  function handleMessage(event) {
+    lastActivity = new Date();
+    for (var i = 0; i < listeners.length; i++) {
+      listeners[i](event);
+    }
+  }
+
+  function handleDisconnect() {
+    clearInterval(timer);
+    source.close();
+    setTimeout(init, options.timeout);
+  }
+
+  return {
+    addMessageListener: function(fn) {
+      listeners.push(fn);
+    }
+  };
+}
+
+function getEventSourceWrapper() {
+  if (!window.__whmEventSourceWrapper) {
+    window.__whmEventSourceWrapper = {};
+  }
+  if (!window.__whmEventSourceWrapper[options.path]) {
+    // cache the wrapper for other entries loaded on
+    // the same page with the same options.path
+    window.__whmEventSourceWrapper[options.path] = EventSourceWrapper();
+  }
+  return window.__whmEventSourceWrapper[options.path];
+}
+
+function connect() {
+  getEventSourceWrapper().addMessageListener(handleMessage);
+
+  function handleMessage(event) {
+    if (event.data == "\uD83D\uDC93") {
+      return;
+    }
+    try {
+      processMessage(JSON.parse(event.data));
+    } catch (ex) {
+      if (options.warn) {
+        console.warn("Invalid HMR message: " + event.data + "\n" + ex);
+      }
+    }
+  }
+}
+
+// the reporter needs to be a singleton on the page
+// in case the client is being used by multiple bundles
+// we only want to report once.
+// all the errors will go to all clients
+var singletonKey = '__webpack_hot_middleware_reporter__';
+var reporter;
+if (typeof window !== 'undefined') {
+  if (!window[singletonKey]) {
+    window[singletonKey] = createReporter();
+  }
+  reporter = window[singletonKey];
+}
+
+function createReporter() {
+  var strip = __webpack_require__(12);
+
+  var overlay;
+  if (typeof document !== 'undefined' && options.overlay) {
+    overlay = __webpack_require__(14);
+  }
+
+  var styles = {
+    errors: "color: #ff0000;",
+    warnings: "color: #5c3b00;"
+  };
+  var previousProblems = null;
+  function log(type, obj) {
+    var newProblems = obj[type].map(function(msg) { return strip(msg); }).join('\n');
+    if (previousProblems == newProblems) {
+      return;
+    } else {
+      previousProblems = newProblems;
+    }
+
+    var style = styles[type];
+    var name = obj.name ? "'" + obj.name + "' " : "";
+    var title = "[HMR] bundle " + name + "has " + obj[type].length + " " + type;
+    // NOTE: console.warn or console.error will print the stack trace
+    // which isn't helpful here, so using console.log to escape it.
+    if (console.group && console.groupEnd) {
+      console.group("%c" + title, style);
+      console.log("%c" + newProblems, style);
+      console.groupEnd();
+    } else {
+      console.log(
+        "%c" + title + "\n\t%c" + newProblems.replace(/\n/g, "\n\t"),
+        style + "font-weight: bold;",
+        style + "font-weight: normal;"
+      );
+    }
+  }
+
+  return {
+    cleanProblemsCache: function () {
+      previousProblems = null;
+    },
+    problems: function(type, obj) {
+      if (options.warn) {
+        log(type, obj);
+      }
+      if (overlay && type !== 'warnings') overlay.showProblems(type, obj[type]);
+    },
+    success: function() {
+      if (overlay) overlay.clear();
+    },
+    useCustomOverlay: function(customOverlay) {
+      overlay = customOverlay;
+    }
+  };
+}
+
+var processUpdate = __webpack_require__(15);
+
+var customHandler;
+var subscribeAllHandler;
+function processMessage(obj) {
+  switch(obj.action) {
+    case "building":
+      if (options.log) {
+        console.log(
+          "[HMR] bundle " + (obj.name ? "'" + obj.name + "' " : "") +
+          "rebuilding"
+        );
+      }
+      break;
+    case "built":
+      if (options.log) {
+        console.log(
+          "[HMR] bundle " + (obj.name ? "'" + obj.name + "' " : "") +
+          "rebuilt in " + obj.time + "ms"
+        );
+      }
+      // fall through
+    case "sync":
+      if (obj.name && options.name && obj.name !== options.name) {
+        return;
+      }
+      if (obj.errors.length > 0) {
+        if (reporter) reporter.problems('errors', obj);
+      } else {
+        if (reporter) {
+          if (obj.warnings.length > 0) {
+            reporter.problems('warnings', obj);
+          } else {
+            reporter.cleanProblemsCache();
+          }
+          reporter.success();
+        }
+        processUpdate(obj.hash, obj.modules, options);
+      }
+      break;
+    default:
+      if (customHandler) {
+        customHandler(obj);
+      }
+  }
+
+  if (subscribeAllHandler) {
+    subscribeAllHandler(obj);
+  }
+}
+
+if (module) {
+  module.exports = {
+    subscribeAll: function subscribeAll(handler) {
+      subscribeAllHandler = handler;
+    },
+    subscribe: function subscribe(handler) {
+      customHandler = handler;
+    },
+    useCustomOverlay: function useCustomOverlay(customOverlay) {
+      if (reporter) reporter.useCustomOverlay(customOverlay);
+    }
+  };
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, "?path=%2F__webpack_hmr", __webpack_require__(17)(module)))
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = ansiHTML
+
+// Reference to https://github.com/sindresorhus/ansi-regex
+var _regANSI = /(?:(?:\u001b\[)|\u009b)(?:(?:[0-9]{1,3})?(?:(?:;[0-9]{0,3})*)?[A-M|f-m])|\u001b[A-M]/
+
+var _defColors = {
+  reset: ['fff', '000'], // [FOREGROUD_COLOR, BACKGROUND_COLOR]
+  black: '000',
+  red: 'ff0000',
+  green: '209805',
+  yellow: 'e8bf03',
+  blue: '0000ff',
+  magenta: 'ff00ff',
+  cyan: '00ffee',
+  lightgrey: 'f0f0f0',
+  darkgrey: '888'
+}
+var _styles = {
+  30: 'black',
+  31: 'red',
+  32: 'green',
+  33: 'yellow',
+  34: 'blue',
+  35: 'magenta',
+  36: 'cyan',
+  37: 'lightgrey'
+}
+var _openTags = {
+  '1': 'font-weight:bold', // bold
+  '2': 'opacity:0.5', // dim
+  '3': '<i>', // italic
+  '4': '<u>', // underscore
+  '8': 'display:none', // hidden
+  '9': '<del>' // delete
+}
+var _closeTags = {
+  '23': '</i>', // reset italic
+  '24': '</u>', // reset underscore
+  '29': '</del>' // reset delete
+}
+
+;[0, 21, 22, 27, 28, 39, 49].forEach(function (n) {
+  _closeTags[n] = '</span>'
+})
+
+/**
+ * Converts text with ANSI color codes to HTML markup.
+ * @param {String} text
+ * @returns {*}
+ */
+function ansiHTML (text) {
+  // Returns the text if the string has no ANSI escape code.
+  if (!_regANSI.test(text)) {
+    return text
+  }
+
+  // Cache opened sequence.
+  var ansiCodes = []
+  // Replace with markup.
+  var ret = text.replace(/\033\[(\d+)*m/g, function (match, seq) {
+    var ot = _openTags[seq]
+    if (ot) {
+      // If current sequence has been opened, close it.
+      if (!!~ansiCodes.indexOf(seq)) { // eslint-disable-line no-extra-boolean-cast
+        ansiCodes.pop()
+        return '</span>'
+      }
+      // Open tag.
+      ansiCodes.push(seq)
+      return ot[0] === '<' ? ot : '<span style="' + ot + ';">'
+    }
+
+    var ct = _closeTags[seq]
+    if (ct) {
+      // Pop sequence
+      ansiCodes.pop()
+      return ct
+    }
+    return ''
+  })
+
+  // Make sure tags are closed.
+  var l = ansiCodes.length
+  ;(l > 0) && (ret += Array(l + 1).join('</span>'))
+
+  return ret
+}
+
+/**
+ * Customize colors.
+ * @param {Object} colors reference to _defColors
+ */
+ansiHTML.setColors = function (colors) {
+  if (typeof colors !== 'object') {
+    throw new Error('`colors` parameter must be an Object.')
+  }
+
+  var _finalColors = {}
+  for (var key in _defColors) {
+    var hex = colors.hasOwnProperty(key) ? colors[key] : null
+    if (!hex) {
+      _finalColors[key] = _defColors[key]
+      continue
+    }
+    if ('reset' === key) {
+      if (typeof hex === 'string') {
+        hex = [hex]
+      }
+      if (!Array.isArray(hex) || hex.length === 0 || hex.some(function (h) {
+        return typeof h !== 'string'
+      })) {
+        throw new Error('The value of `' + key + '` property must be an Array and each item could only be a hex string, e.g.: FF0000')
+      }
+      var defHexColor = _defColors[key]
+      if (!hex[0]) {
+        hex[0] = defHexColor[0]
+      }
+      if (hex.length === 1 || !hex[1]) {
+        hex = [hex[0]]
+        hex.push(defHexColor[1])
+      }
+
+      hex = hex.slice(0, 2)
+    } else if (typeof hex !== 'string') {
+      throw new Error('The value of `' + key + '` property must be a hex string, e.g.: FF0000')
+    }
+    _finalColors[key] = hex
+  }
+  _setTags(_finalColors)
+}
+
+/**
+ * Reset colors.
+ */
+ansiHTML.reset = function () {
+  _setTags(_defColors)
+}
+
+/**
+ * Expose tags, including open and close.
+ * @type {Object}
+ */
+ansiHTML.tags = {}
+
+if (Object.defineProperty) {
+  Object.defineProperty(ansiHTML.tags, 'open', {
+    get: function () { return _openTags }
+  })
+  Object.defineProperty(ansiHTML.tags, 'close', {
+    get: function () { return _closeTags }
+  })
+} else {
+  ansiHTML.tags.open = _openTags
+  ansiHTML.tags.close = _closeTags
+}
+
+function _setTags (colors) {
+  // reset all
+  _openTags['0'] = 'font-weight:normal;opacity:1;color:#' + colors.reset[0] + ';background:#' + colors.reset[1]
+  // inverse
+  _openTags['7'] = 'color:#' + colors.reset[1] + ';background:#' + colors.reset[0]
+  // dark grey
+  _openTags['90'] = 'color:#' + colors.darkgrey
+
+  for (var code in _styles) {
+    var color = _styles[code]
+    var oriColor = colors[color] || '000'
+    _openTags[code] = 'color:#' + oriColor
+    code = parseInt(code)
+    _openTags[(code + 10).toString()] = 'background:#' + oriColor
+  }
+}
+
+ansiHTML.reset()
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = function () {
+	return /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-PRZcf-nqry=><]/g;
+};
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = {
+  XmlEntities: __webpack_require__(7),
+  Html4Entities: __webpack_require__(6),
+  Html5Entities: __webpack_require__(0),
+  AllHtmlEntities: __webpack_require__(0)
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+var HTML_ALPHA = ['apos', 'nbsp', 'iexcl', 'cent', 'pound', 'curren', 'yen', 'brvbar', 'sect', 'uml', 'copy', 'ordf', 'laquo', 'not', 'shy', 'reg', 'macr', 'deg', 'plusmn', 'sup2', 'sup3', 'acute', 'micro', 'para', 'middot', 'cedil', 'sup1', 'ordm', 'raquo', 'frac14', 'frac12', 'frac34', 'iquest', 'Agrave', 'Aacute', 'Acirc', 'Atilde', 'Auml', 'Aring', 'Aelig', 'Ccedil', 'Egrave', 'Eacute', 'Ecirc', 'Euml', 'Igrave', 'Iacute', 'Icirc', 'Iuml', 'ETH', 'Ntilde', 'Ograve', 'Oacute', 'Ocirc', 'Otilde', 'Ouml', 'times', 'Oslash', 'Ugrave', 'Uacute', 'Ucirc', 'Uuml', 'Yacute', 'THORN', 'szlig', 'agrave', 'aacute', 'acirc', 'atilde', 'auml', 'aring', 'aelig', 'ccedil', 'egrave', 'eacute', 'ecirc', 'euml', 'igrave', 'iacute', 'icirc', 'iuml', 'eth', 'ntilde', 'ograve', 'oacute', 'ocirc', 'otilde', 'ouml', 'divide', 'Oslash', 'ugrave', 'uacute', 'ucirc', 'uuml', 'yacute', 'thorn', 'yuml', 'quot', 'amp', 'lt', 'gt', 'oelig', 'oelig', 'scaron', 'scaron', 'yuml', 'circ', 'tilde', 'ensp', 'emsp', 'thinsp', 'zwnj', 'zwj', 'lrm', 'rlm', 'ndash', 'mdash', 'lsquo', 'rsquo', 'sbquo', 'ldquo', 'rdquo', 'bdquo', 'dagger', 'dagger', 'permil', 'lsaquo', 'rsaquo', 'euro', 'fnof', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigmaf', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'thetasym', 'upsih', 'piv', 'bull', 'hellip', 'prime', 'prime', 'oline', 'frasl', 'weierp', 'image', 'real', 'trade', 'alefsym', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'crarr', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'forall', 'part', 'exist', 'empty', 'nabla', 'isin', 'notin', 'ni', 'prod', 'sum', 'minus', 'lowast', 'radic', 'prop', 'infin', 'ang', 'and', 'or', 'cap', 'cup', 'int', 'there4', 'sim', 'cong', 'asymp', 'ne', 'equiv', 'le', 'ge', 'sub', 'sup', 'nsub', 'sube', 'supe', 'oplus', 'otimes', 'perp', 'sdot', 'lceil', 'rceil', 'lfloor', 'rfloor', 'lang', 'rang', 'loz', 'spades', 'clubs', 'hearts', 'diams'];
+var HTML_CODES = [39, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 34, 38, 60, 62, 338, 339, 352, 353, 376, 710, 732, 8194, 8195, 8201, 8204, 8205, 8206, 8207, 8211, 8212, 8216, 8217, 8218, 8220, 8221, 8222, 8224, 8225, 8240, 8249, 8250, 8364, 402, 913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 931, 932, 933, 934, 935, 936, 937, 945, 946, 947, 948, 949, 950, 951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967, 968, 969, 977, 978, 982, 8226, 8230, 8242, 8243, 8254, 8260, 8472, 8465, 8476, 8482, 8501, 8592, 8593, 8594, 8595, 8596, 8629, 8656, 8657, 8658, 8659, 8660, 8704, 8706, 8707, 8709, 8711, 8712, 8713, 8715, 8719, 8721, 8722, 8727, 8730, 8733, 8734, 8736, 8743, 8744, 8745, 8746, 8747, 8756, 8764, 8773, 8776, 8800, 8801, 8804, 8805, 8834, 8835, 8836, 8838, 8839, 8853, 8855, 8869, 8901, 8968, 8969, 8970, 8971, 9001, 9002, 9674, 9824, 9827, 9829, 9830];
+
+var alphaIndex = {};
+var numIndex = {};
+
+var i = 0;
+var length = HTML_ALPHA.length;
+while (i < length) {
+    var a = HTML_ALPHA[i];
+    var c = HTML_CODES[i];
+    alphaIndex[a] = String.fromCharCode(c);
+    numIndex[c] = a;
+    i++;
+}
+
+/**
+ * @constructor
+ */
+function Html4Entities() {}
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+Html4Entities.prototype.decode = function(str) {
+    if (str.length === 0) {
+        return '';
+    }
+    return str.replace(/&(#?[\w\d]+);?/g, function(s, entity) {
+        var chr;
+        if (entity.charAt(0) === "#") {
+            var code = entity.charAt(1).toLowerCase() === 'x' ?
+                parseInt(entity.substr(2), 16) :
+                parseInt(entity.substr(1));
+
+            if (!(isNaN(code) || code < -32768 || code > 65535)) {
+                chr = String.fromCharCode(code);
+            }
+        } else {
+            chr = alphaIndex[entity];
+        }
+        return chr || s;
+    });
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+Html4Entities.decode = function(str) {
+    return new Html4Entities().decode(str);
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+Html4Entities.prototype.encode = function(str) {
+    var strLength = str.length;
+    if (strLength === 0) {
+        return '';
+    }
+    var result = '';
+    var i = 0;
+    while (i < strLength) {
+        var alpha = numIndex[str.charCodeAt(i)];
+        result += alpha ? "&" + alpha + ";" : str.charAt(i);
+        i++;
+    }
+    return result;
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+Html4Entities.encode = function(str) {
+    return new Html4Entities().encode(str);
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+Html4Entities.prototype.encodeNonUTF = function(str) {
+    var strLength = str.length;
+    if (strLength === 0) {
+        return '';
+    }
+    var result = '';
+    var i = 0;
+    while (i < strLength) {
+        var cc = str.charCodeAt(i);
+        var alpha = numIndex[cc];
+        if (alpha) {
+            result += "&" + alpha + ";";
+        } else if (cc < 32 || cc > 126) {
+            result += "&#" + cc + ";";
+        } else {
+            result += str.charAt(i);
+        }
+        i++;
+    }
+    return result;
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+Html4Entities.encodeNonUTF = function(str) {
+    return new Html4Entities().encodeNonUTF(str);
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+Html4Entities.prototype.encodeNonASCII = function(str) {
+    var strLength = str.length;
+    if (strLength === 0) {
+        return '';
+    }
+    var result = '';
+    var i = 0;
+    while (i < strLength) {
+        var c = str.charCodeAt(i);
+        if (c <= 255) {
+            result += str[i++];
+            continue;
+        }
+        result += '&#' + c + ';';
+        i++;
+    }
+    return result;
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+Html4Entities.encodeNonASCII = function(str) {
+    return new Html4Entities().encodeNonASCII(str);
+};
+
+module.exports = Html4Entities;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+var ALPHA_INDEX = {
+    '&lt': '<',
+    '&gt': '>',
+    '&quot': '"',
+    '&apos': '\'',
+    '&amp': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&apos;': '\'',
+    '&amp;': '&'
+};
+
+var CHAR_INDEX = {
+    60: 'lt',
+    62: 'gt',
+    34: 'quot',
+    39: 'apos',
+    38: 'amp'
+};
+
+var CHAR_S_INDEX = {
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    '\'': '&apos;',
+    '&': '&amp;'
+};
+
+/**
+ * @constructor
+ */
+function XmlEntities() {}
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+XmlEntities.prototype.encode = function(str) {
+    if (str.length === 0) {
+        return '';
+    }
+    return str.replace(/<|>|"|'|&/g, function(s) {
+        return CHAR_S_INDEX[s];
+    });
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+ XmlEntities.encode = function(str) {
+    return new XmlEntities().encode(str);
+ };
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+XmlEntities.prototype.decode = function(str) {
+    if (str.length === 0) {
+        return '';
+    }
+    return str.replace(/&#?[0-9a-zA-Z]+;?/g, function(s) {
+        if (s.charAt(1) === '#') {
+            var code = s.charAt(2).toLowerCase() === 'x' ?
+                parseInt(s.substr(3), 16) :
+                parseInt(s.substr(2));
+
+            if (isNaN(code) || code < -32768 || code > 65535) {
+                return '';
+            }
+            return String.fromCharCode(code);
+        }
+        return ALPHA_INDEX[s] || s;
+    });
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+ XmlEntities.decode = function(str) {
+    return new XmlEntities().decode(str);
+ };
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+XmlEntities.prototype.encodeNonUTF = function(str) {
+    var strLength = str.length;
+    if (strLength === 0) {
+        return '';
+    }
+    var result = '';
+    var i = 0;
+    while (i < strLength) {
+        var c = str.charCodeAt(i);
+        var alpha = CHAR_INDEX[c];
+        if (alpha) {
+            result += "&" + alpha + ";";
+            i++;
+            continue;
+        }
+        if (c < 32 || c > 126) {
+            result += '&#' + c + ';';
+        } else {
+            result += str.charAt(i);
+        }
+        i++;
+    }
+    return result;
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+ XmlEntities.encodeNonUTF = function(str) {
+    return new XmlEntities().encodeNonUTF(str);
+ };
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+XmlEntities.prototype.encodeNonASCII = function(str) {
+    var strLenght = str.length;
+    if (strLenght === 0) {
+        return '';
+    }
+    var result = '';
+    var i = 0;
+    while (i < strLenght) {
+        var c = str.charCodeAt(i);
+        if (c <= 255) {
+            result += str[i++];
+            continue;
+        }
+        result += '&#' + c + ';';
+        i++;
+    }
+    return result;
+};
+
+/**
+ * @param {String} str
+ * @returns {String}
+ */
+ XmlEntities.encodeNonASCII = function(str) {
+    return new XmlEntities().encodeNonASCII(str);
+ };
+
+module.exports = XmlEntities;
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1092,12 +1890,219 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 2 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+// If obj.hasOwnProperty has been overridden, then calling
+// obj.hasOwnProperty(prop) will break.
+// See: https://github.com/joyent/node/issues/1707
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+module.exports = function(qs, sep, eq, options) {
+  sep = sep || '&';
+  eq = eq || '=';
+  var obj = {};
+
+  if (typeof qs !== 'string' || qs.length === 0) {
+    return obj;
+  }
+
+  var regexp = /\+/g;
+  qs = qs.split(sep);
+
+  var maxKeys = 1000;
+  if (options && typeof options.maxKeys === 'number') {
+    maxKeys = options.maxKeys;
+  }
+
+  var len = qs.length;
+  // maxKeys <= 0 means that we should not limit keys count
+  if (maxKeys > 0 && len > maxKeys) {
+    len = maxKeys;
+  }
+
+  for (var i = 0; i < len; ++i) {
+    var x = qs[i].replace(regexp, '%20'),
+        idx = x.indexOf(eq),
+        kstr, vstr, k, v;
+
+    if (idx >= 0) {
+      kstr = x.substr(0, idx);
+      vstr = x.substr(idx + 1);
+    } else {
+      kstr = x;
+      vstr = '';
+    }
+
+    k = decodeURIComponent(kstr);
+    v = decodeURIComponent(vstr);
+
+    if (!hasOwnProperty(obj, k)) {
+      obj[k] = v;
+    } else if (isArray(obj[k])) {
+      obj[k].push(v);
+    } else {
+      obj[k] = [obj[k], v];
+    }
+  }
+
+  return obj;
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+var stringifyPrimitive = function(v) {
+  switch (typeof v) {
+    case 'string':
+      return v;
+
+    case 'boolean':
+      return v ? 'true' : 'false';
+
+    case 'number':
+      return isFinite(v) ? v : '';
+
+    default:
+      return '';
+  }
+};
+
+module.exports = function(obj, sep, eq, name) {
+  sep = sep || '&';
+  eq = eq || '=';
+  if (obj === null) {
+    obj = undefined;
+  }
+
+  if (typeof obj === 'object') {
+    return map(objectKeys(obj), function(k) {
+      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
+      if (isArray(obj[k])) {
+        return map(obj[k], function(v) {
+          return ks + encodeURIComponent(stringifyPrimitive(v));
+        }).join(sep);
+      } else {
+        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
+      }
+    }).join(sep);
+
+  }
+
+  if (!name) return '';
+  return encodeURIComponent(stringifyPrimitive(name)) + eq +
+         encodeURIComponent(stringifyPrimitive(obj));
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+function map (xs, f) {
+  if (xs.map) return xs.map(f);
+  var res = [];
+  for (var i = 0; i < xs.length; i++) {
+    res.push(f(xs[i], i));
+  }
+  return res;
+}
+
+var objectKeys = Object.keys || function (obj) {
+  var res = [];
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
+  }
+  return res;
+};
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.decode = exports.parse = __webpack_require__(9);
+exports.encode = exports.stringify = __webpack_require__(10);
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ansiRegex = __webpack_require__(4)();
+
+module.exports = function (str) {
+	return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
+};
+
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process, global) {/*!
- * Vue.js v2.2.2
+ * Vue.js v2.2.4
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -1375,7 +2380,7 @@ var config = {
   /**
    * Whether to record perf
    */
-  performance: process.env.NODE_ENV !== 'production',
+  performance: false,
 
   /**
    * Error handler for watcher errors
@@ -1450,6 +2455,48 @@ var config = {
    */
   _maxUpdateCount: 100
 };
+
+/*  */
+
+var emptyObject = Object.freeze({});
+
+/**
+ * Check if a string starts with $ or _
+ */
+function isReserved (str) {
+  var c = (str + '').charCodeAt(0);
+  return c === 0x24 || c === 0x5F
+}
+
+/**
+ * Define a property.
+ */
+function def (obj, key, val, enumerable) {
+  Object.defineProperty(obj, key, {
+    value: val,
+    enumerable: !!enumerable,
+    writable: true,
+    configurable: true
+  });
+}
+
+/**
+ * Parse simple path.
+ */
+var bailRE = /[^\w.$]/;
+function parsePath (path) {
+  if (bailRE.test(path)) {
+    return
+  }
+  var segments = path.split('.');
+  return function (obj) {
+    for (var i = 0; i < segments.length; i++) {
+      if (!obj) { return }
+      obj = obj[segments[i]];
+    }
+    return obj
+  }
+}
 
 /*  */
 /* globals MutationObserver */
@@ -1600,57 +2647,6 @@ if (typeof Set !== 'undefined' && isNative(Set)) {
   }());
 }
 
-var perf;
-
-if (process.env.NODE_ENV !== 'production') {
-  perf = inBrowser && window.performance;
-  if (perf && (!perf.mark || !perf.measure)) {
-    perf = undefined;
-  }
-}
-
-/*  */
-
-var emptyObject = Object.freeze({});
-
-/**
- * Check if a string starts with $ or _
- */
-function isReserved (str) {
-  var c = (str + '').charCodeAt(0);
-  return c === 0x24 || c === 0x5F
-}
-
-/**
- * Define a property.
- */
-function def (obj, key, val, enumerable) {
-  Object.defineProperty(obj, key, {
-    value: val,
-    enumerable: !!enumerable,
-    writable: true,
-    configurable: true
-  });
-}
-
-/**
- * Parse simple path.
- */
-var bailRE = /[^\w.$]/;
-function parsePath (path) {
-  if (bailRE.test(path)) {
-    return
-  }
-  var segments = path.split('.');
-  return function (obj) {
-    for (var i = 0; i < segments.length; i++) {
-      if (!obj) { return }
-      obj = obj[segments[i]];
-    }
-    return obj
-  }
-}
-
 var warn = noop;
 var tip = noop;
 var formatComponentName;
@@ -1682,9 +2678,11 @@ if (process.env.NODE_ENV !== 'production') {
     if (vm.$root === vm) {
       return '<Root>'
     }
-    var name = vm._isVue
-      ? vm.$options.name || vm.$options._componentTag
-      : vm.name;
+    var name = typeof vm === 'function' && vm.options
+      ? vm.options.name
+      : vm._isVue
+        ? vm.$options.name || vm.$options._componentTag
+        : vm.name;
 
     var file = vm._isVue && vm.$options.__file;
     if (!name && file) {
@@ -2630,6 +3628,29 @@ if (process.env.NODE_ENV !== 'production') {
   };
 }
 
+var mark;
+var measure;
+
+if (process.env.NODE_ENV !== 'production') {
+  var perf = inBrowser && window.performance;
+  /* istanbul ignore if */
+  if (
+    perf &&
+    perf.mark &&
+    perf.measure &&
+    perf.clearMarks &&
+    perf.clearMeasures
+  ) {
+    mark = function (tag) { return perf.mark(tag); };
+    measure = function (name, startTag, endTag) {
+      perf.measure(name, startTag, endTag);
+      perf.clearMarks(startTag);
+      perf.clearMarks(endTag);
+      perf.clearMeasures(name);
+    };
+  }
+}
+
 /*  */
 
 var VNode = function VNode (
@@ -3201,19 +4222,22 @@ function mountComponent (
 
   var updateComponent;
   /* istanbul ignore if */
-  if (process.env.NODE_ENV !== 'production' && config.performance && perf) {
+  if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
     updateComponent = function () {
       var name = vm._name;
-      var startTag = "start " + name;
-      var endTag = "end " + name;
-      perf.mark(startTag);
+      var id = vm._uid;
+      var startTag = "vue-perf-start:" + id;
+      var endTag = "vue-perf-end:" + id;
+
+      mark(startTag);
       var vnode = vm._render();
-      perf.mark(endTag);
-      perf.measure((name + " render"), startTag, endTag);
-      perf.mark(startTag);
+      mark(endTag);
+      measure((name + " render"), startTag, endTag);
+
+      mark(startTag);
       vm._update(vnode, hydrating);
-      perf.mark(endTag);
-      perf.measure((name + " patch"), startTag, endTag);
+      mark(endTag);
+      measure((name + " patch"), startTag, endTag);
     };
   } else {
     updateComponent = function () {
@@ -3955,8 +4979,63 @@ function stateMixin (Vue) {
 
 /*  */
 
-var hooks = { init: init, prepatch: prepatch, insert: insert, destroy: destroy };
-var hooksToMerge = Object.keys(hooks);
+// hooks to be invoked on component VNodes during patch
+var componentVNodeHooks = {
+  init: function init (
+    vnode,
+    hydrating,
+    parentElm,
+    refElm
+  ) {
+    if (!vnode.componentInstance || vnode.componentInstance._isDestroyed) {
+      var child = vnode.componentInstance = createComponentInstanceForVnode(
+        vnode,
+        activeInstance,
+        parentElm,
+        refElm
+      );
+      child.$mount(hydrating ? vnode.elm : undefined, hydrating);
+    } else if (vnode.data.keepAlive) {
+      // kept-alive components, treat as a patch
+      var mountedNode = vnode; // work around flow
+      componentVNodeHooks.prepatch(mountedNode, mountedNode);
+    }
+  },
+
+  prepatch: function prepatch (oldVnode, vnode) {
+    var options = vnode.componentOptions;
+    var child = vnode.componentInstance = oldVnode.componentInstance;
+    updateChildComponent(
+      child,
+      options.propsData, // updated props
+      options.listeners, // updated listeners
+      vnode, // new parent vnode
+      options.children // new children
+    );
+  },
+
+  insert: function insert (vnode) {
+    if (!vnode.componentInstance._isMounted) {
+      vnode.componentInstance._isMounted = true;
+      callHook(vnode.componentInstance, 'mounted');
+    }
+    if (vnode.data.keepAlive) {
+      activateChildComponent(vnode.componentInstance, true /* direct */);
+    }
+  },
+
+  destroy: function destroy (vnode) {
+    if (!vnode.componentInstance._isDestroyed) {
+      if (!vnode.data.keepAlive) {
+        vnode.componentInstance.$destroy();
+      } else {
+        deactivateChildComponent(vnode.componentInstance, true /* direct */);
+      }
+    }
+  }
+};
+
+var hooksToMerge = Object.keys(componentVNodeHooks);
 
 function createComponent (
   Ctor,
@@ -4104,62 +5183,6 @@ function createComponentInstanceForVnode (
   return new vnodeComponentOptions.Ctor(options)
 }
 
-function init (
-  vnode,
-  hydrating,
-  parentElm,
-  refElm
-) {
-  if (!vnode.componentInstance || vnode.componentInstance._isDestroyed) {
-    var child = vnode.componentInstance = createComponentInstanceForVnode(
-      vnode,
-      activeInstance,
-      parentElm,
-      refElm
-    );
-    child.$mount(hydrating ? vnode.elm : undefined, hydrating);
-  } else if (vnode.data.keepAlive) {
-    // kept-alive components, treat as a patch
-    var mountedNode = vnode; // work around flow
-    prepatch(mountedNode, mountedNode);
-  }
-}
-
-function prepatch (
-  oldVnode,
-  vnode
-) {
-  var options = vnode.componentOptions;
-  var child = vnode.componentInstance = oldVnode.componentInstance;
-  updateChildComponent(
-    child,
-    options.propsData, // updated props
-    options.listeners, // updated listeners
-    vnode, // new parent vnode
-    options.children // new children
-  );
-}
-
-function insert (vnode) {
-  if (!vnode.componentInstance._isMounted) {
-    vnode.componentInstance._isMounted = true;
-    callHook(vnode.componentInstance, 'mounted');
-  }
-  if (vnode.data.keepAlive) {
-    activateChildComponent(vnode.componentInstance, true /* direct */);
-  }
-}
-
-function destroy (vnode) {
-  if (!vnode.componentInstance._isDestroyed) {
-    if (!vnode.data.keepAlive) {
-      vnode.componentInstance.$destroy();
-    } else {
-      deactivateChildComponent(vnode.componentInstance, true /* direct */);
-    }
-  }
-}
-
 function resolveAsyncComponent (
   factory,
   baseCtor,
@@ -4223,6 +5246,21 @@ function extractProps (data, Ctor) {
   if (attrs || props || domProps) {
     for (var key in propOptions) {
       var altKey = hyphenate(key);
+      if (process.env.NODE_ENV !== 'production') {
+        var keyInLowerCase = key.toLowerCase();
+        if (
+          key !== keyInLowerCase &&
+          attrs && attrs.hasOwnProperty(keyInLowerCase)
+        ) {
+          warn(
+            "Prop \"" + keyInLowerCase + "\" is not declared in component " +
+            (formatComponentName(Ctor)) + ". Note that HTML attributes are " +
+            "case-insensitive and camelCased props need to use their kebab-case " +
+            "equivalents when using in-DOM templates. You should probably use " +
+            "\"" + altKey + "\" instead of \"" + key + "\"."
+          );
+        }
+      }
       checkProp(res, props, key, altKey, true) ||
       checkProp(res, attrs, key, altKey) ||
       checkProp(res, domProps, key, altKey);
@@ -4263,7 +5301,7 @@ function mergeHooks (data) {
   for (var i = 0; i < hooksToMerge.length; i++) {
     var key = hooksToMerge[i];
     var fromParent = data.hook[key];
-    var ours = hooks[key];
+    var ours = componentVNodeHooks[key];
     data.hook[key] = fromParent ? mergeHook$1(ours, fromParent) : ours;
   }
 }
@@ -4505,14 +5543,17 @@ function bindObjectProps (
       if (Array.isArray(value)) {
         value = toObject(value);
       }
+      var hash;
       for (var key in value) {
         if (key === 'class' || key === 'style') {
-          data[key] = value[key];
+          hash = data;
         } else {
           var type = data.attrs && data.attrs.type;
-          var hash = asProp || config.mustUseProp(tag, type, key)
+          hash = asProp || config.mustUseProp(tag, type, key)
             ? data.domProps || (data.domProps = {})
             : data.attrs || (data.attrs = {});
+        }
+        if (!(key in hash)) {
           hash[key] = value[key];
         }
       }
@@ -4724,8 +5765,8 @@ var uid = 0;
 function initMixin (Vue) {
   Vue.prototype._init = function (options) {
     /* istanbul ignore if */
-    if (process.env.NODE_ENV !== 'production' && config.performance && perf) {
-      perf.mark('init');
+    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+      mark('vue-perf-init');
     }
 
     var vm = this;
@@ -4764,10 +5805,10 @@ function initMixin (Vue) {
     callHook(vm, 'created');
 
     /* istanbul ignore if */
-    if (process.env.NODE_ENV !== 'production' && config.performance && perf) {
+    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
       vm._name = formatComponentName(vm, false);
-      perf.mark('init end');
-      perf.measure(((vm._name) + " init"), 'init', 'init end');
+      mark('vue-perf-init-end');
+      measure(((vm._name) + " init"), 'vue-perf-init', 'vue-perf-init-end');
     }
 
     if (vm.$options.el) {
@@ -5179,7 +6220,7 @@ Object.defineProperty(Vue$3.prototype, '$isServer', {
   get: isServerRendering
 });
 
-Vue$3.version = '2.2.2';
+Vue$3.version = '2.2.4';
 
 /*  */
 
@@ -5517,7 +6558,7 @@ function registerRef (vnode, isRemoval) {
 
 var emptyNode = new VNode('', {}, []);
 
-var hooks$1 = ['create', 'activate', 'update', 'remove', 'destroy'];
+var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
 function isUndef (s) {
   return s == null
@@ -5553,10 +6594,10 @@ function createPatchFunction (backend) {
   var modules = backend.modules;
   var nodeOps = backend.nodeOps;
 
-  for (i = 0; i < hooks$1.length; ++i) {
-    cbs[hooks$1[i]] = [];
+  for (i = 0; i < hooks.length; ++i) {
+    cbs[hooks[i]] = [];
     for (j = 0; j < modules.length; ++j) {
-      if (modules[j][hooks$1[i]] !== undefined) { cbs[hooks$1[i]].push(modules[j][hooks$1[i]]); }
+      if (modules[j][hooks[i]] !== undefined) { cbs[hooks[i]].push(modules[j][hooks[i]]); }
     }
   }
 
@@ -8357,7 +9398,7 @@ var IS_REGEX_CAPTURING_BROKEN = false;
 });
 
 // Special Elements (can contain anything)
-var isScriptOrStyle = makeMap('script,style', true);
+var isPlainTextElement = makeMap('script,style,textarea', true);
 var reCache = {};
 
 var decodingMap = {
@@ -8383,8 +9424,8 @@ function parseHTML (html, options) {
   var last, lastTag;
   while (html) {
     last = html;
-    // Make sure we're not in a script or style element
-    if (!lastTag || !isScriptOrStyle(lastTag)) {
+    // Make sure we're not in a plaintext content element like script/style
+    if (!lastTag || !isPlainTextElement(lastTag)) {
       var textEnd = html.indexOf('<');
       if (textEnd === 0) {
         // Comment:
@@ -8464,7 +9505,7 @@ function parseHTML (html, options) {
       var endTagLength = 0;
       var rest = html.replace(reStackedTag, function (all, text, endTag) {
         endTagLength = endTag.length;
-        if (stackedTag !== 'script' && stackedTag !== 'style' && stackedTag !== 'noscript') {
+        if (!isPlainTextElement(stackedTag) && stackedTag !== 'noscript') {
           text = text
             .replace(/<!--([\s\S]*?)-->/g, '$1')
             .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1');
@@ -8659,25 +9700,26 @@ function parseText (
 
 /*  */
 
-var dirRE = /^v-|^@|^:/;
 var onRE = /^@|^v-on:/;
+var dirRE = /^v-|^@|^:/;
 var forAliasRE = /(.*?)\s+(?:in|of)\s+(.*)/;
 var forIteratorRE = /\((\{[^}]*\}|[^,]*),([^,]*)(?:,([^,]*))?\)/;
-var bindRE = /^:|^v-bind:/;
+
 var argRE = /:(.*)$/;
+var bindRE = /^:|^v-bind:/;
 var modifierRE = /\.[^.]+/g;
 
 var decodeHTMLCached = cached(decode);
 
 // configurable state
 var warn$2;
-var platformGetTagNamespace;
-var platformMustUseProp;
-var platformIsPreTag;
-var preTransforms;
-var transforms;
-var postTransforms;
 var delimiters;
+var transforms;
+var preTransforms;
+var postTransforms;
+var platformIsPreTag;
+var platformMustUseProp;
+var platformGetTagNamespace;
 
 /**
  * Convert HTML string to AST.
@@ -8702,6 +9744,13 @@ function parse (
   var inVPre = false;
   var inPre = false;
   var warned = false;
+
+  function warnOnce (msg) {
+    if (!warned) {
+      warned = true;
+      warn$2(msg);
+    }
+  }
 
   function endPre (element) {
     // check pre state
@@ -8786,17 +9835,15 @@ function parse (
       }
 
       function checkRootConstraints (el) {
-        if (process.env.NODE_ENV !== 'production' && !warned) {
+        if (process.env.NODE_ENV !== 'production') {
           if (el.tag === 'slot' || el.tag === 'template') {
-            warned = true;
-            warn$2(
+            warnOnce(
               "Cannot use <" + (el.tag) + "> as component root element because it may " +
               'contain multiple nodes.'
             );
           }
           if (el.attrsMap.hasOwnProperty('v-for')) {
-            warned = true;
-            warn$2(
+            warnOnce(
               'Cannot use v-for on stateful component root element because ' +
               'it renders multiple elements.'
             );
@@ -8816,9 +9863,8 @@ function parse (
             exp: element.elseif,
             block: element
           });
-        } else if (process.env.NODE_ENV !== 'production' && !warned) {
-          warned = true;
-          warn$2(
+        } else if (process.env.NODE_ENV !== 'production') {
+          warnOnce(
             "Component template should contain exactly one root element. " +
             "If you are using v-if on multiple elements, " +
             "use v-else-if to chain them instead."
@@ -8863,11 +9909,16 @@ function parse (
 
     chars: function chars (text) {
       if (!currentParent) {
-        if (process.env.NODE_ENV !== 'production' && !warned && text === template) {
-          warned = true;
-          warn$2(
-            'Component template requires a root element, rather than just text.'
-          );
+        if (process.env.NODE_ENV !== 'production') {
+          if (text === template) {
+            warnOnce(
+              'Component template requires a root element, rather than just text.'
+            );
+          } else if ((text = text.trim())) {
+            warnOnce(
+              ("text \"" + text + "\" outside root element will be ignored.")
+            );
+          }
         }
         return
       }
@@ -9066,7 +10117,7 @@ function processComponent (el) {
 
 function processAttrs (el) {
   var list = el.attrsList;
-  var i, l, name, rawName, value, arg, modifiers, isProp;
+  var i, l, name, rawName, value, modifiers, isProp;
   for (i = 0, l = list.length; i < l; i++) {
     name = rawName = list[i].name;
     value = list[i].value;
@@ -9104,7 +10155,8 @@ function processAttrs (el) {
         name = name.replace(dirRE, '');
         // parse arg
         var argMatch = name.match(argRE);
-        if (argMatch && (arg = argMatch[1])) {
+        var arg = argMatch && argMatch[1];
+        if (arg) {
           name = name.slice(0, -(arg.length + 1));
         }
         addDirective(el, name, rawName, value, arg, modifiers);
@@ -9390,10 +10442,11 @@ function genHandler (
       : ("function($event){" + (handler.value) + "}") // inline statement
   } else {
     var code = '';
+    var genModifierCode = '';
     var keys = [];
     for (var key in handler.modifiers) {
       if (modifierCode[key]) {
-        code += modifierCode[key];
+        genModifierCode += modifierCode[key];
         // left/right
         if (keyCodes[key]) {
           keys.push(key);
@@ -9404,6 +10457,10 @@ function genHandler (
     }
     if (keys.length) {
       code += genKeyFilter(keys);
+    }
+    // Make sure modifiers like prevent and stop get executed after key filtering
+    if (genModifierCode) {
+      code += genModifierCode;
     }
     var handlerCode = isMethodPath
       ? handler.value + '($event)'
@@ -10249,8 +11306,8 @@ Vue$3.prototype.$mount = function (
     }
     if (template) {
       /* istanbul ignore if */
-      if (process.env.NODE_ENV !== 'production' && config.performance && perf) {
-        perf.mark('compile');
+      if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+        mark('compile');
       }
 
       var ref = compileToFunctions(template, {
@@ -10263,9 +11320,9 @@ Vue$3.prototype.$mount = function (
       options.staticRenderFns = staticRenderFns;
 
       /* istanbul ignore if */
-      if (process.env.NODE_ENV !== 'production' && config.performance && perf) {
-        perf.mark('compile end');
-        perf.measure(((this._name) + " compile"), 'compile', 'compile end');
+      if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+        mark('compile end');
+        measure(((this._name) + " compile"), 'compile', 'compile end');
       }
     }
   }
@@ -10290,1182 +11347,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(17)))
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_class_component__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_class_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_class_component__);
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-var App = (function (_super) {
-    __extends(App, _super);
-    function App() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = "Max";
-        return _this;
-    }
-    return App;
-}(__WEBPACK_IMPORTED_MODULE_0_vue___default.a));
-App = __decorate([
-    __WEBPACK_IMPORTED_MODULE_1_vue_class_component___default.a
-], App);
-new App({ el: "#app" });
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(__resourceQuery, module) {/*eslint-env browser*/
-/*global __resourceQuery __webpack_public_path__*/
-
-var options = {
-  path: "/__webpack_hmr",
-  timeout: 20 * 1000,
-  overlay: true,
-  reload: false,
-  log: true,
-  warn: true,
-  name: ''
-};
-if (true) {
-  var querystring = __webpack_require__(12);
-  var overrides = querystring.parse(__resourceQuery.slice(1));
-  if (overrides.path) options.path = overrides.path;
-  if (overrides.timeout) options.timeout = overrides.timeout;
-  if (overrides.overlay) options.overlay = overrides.overlay !== 'false';
-  if (overrides.reload) options.reload = overrides.reload !== 'false';
-  if (overrides.noInfo && overrides.noInfo !== 'false') {
-    options.log = false;
-  }
-  if (overrides.name) {
-    options.name = overrides.name;
-  }
-  if (overrides.quiet && overrides.quiet !== 'false') {
-    options.log = false;
-    options.warn = false;
-  }
-  if (overrides.dynamicPublicPath) {
-    options.path = __webpack_require__.p + options.path;
-  }
-}
-
-if (typeof window === 'undefined') {
-  // do nothing
-} else if (typeof window.EventSource === 'undefined') {
-  console.warn(
-    "webpack-hot-middleware's client requires EventSource to work. " +
-    "You should include a polyfill if you want to support this browser: " +
-    "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events#Tools"
-  );
-} else {
-  connect();
-}
-
-function EventSourceWrapper() {
-  var source;
-  var lastActivity = new Date();
-  var listeners = [];
-
-  init();
-  var timer = setInterval(function() {
-    if ((new Date() - lastActivity) > options.timeout) {
-      handleDisconnect();
-    }
-  }, options.timeout / 2);
-
-  function init() {
-    source = new window.EventSource(options.path);
-    source.onopen = handleOnline;
-    source.onerror = handleDisconnect;
-    source.onmessage = handleMessage;
-  }
-
-  function handleOnline() {
-    if (options.log) console.log("[HMR] connected");
-    lastActivity = new Date();
-  }
-
-  function handleMessage(event) {
-    lastActivity = new Date();
-    for (var i = 0; i < listeners.length; i++) {
-      listeners[i](event);
-    }
-  }
-
-  function handleDisconnect() {
-    clearInterval(timer);
-    source.close();
-    setTimeout(init, options.timeout);
-  }
-
-  return {
-    addMessageListener: function(fn) {
-      listeners.push(fn);
-    }
-  };
-}
-
-function getEventSourceWrapper() {
-  if (!window.__whmEventSourceWrapper) {
-    window.__whmEventSourceWrapper = {};
-  }
-  if (!window.__whmEventSourceWrapper[options.path]) {
-    // cache the wrapper for other entries loaded on
-    // the same page with the same options.path
-    window.__whmEventSourceWrapper[options.path] = EventSourceWrapper();
-  }
-  return window.__whmEventSourceWrapper[options.path];
-}
-
-function connect() {
-  getEventSourceWrapper().addMessageListener(handleMessage);
-
-  function handleMessage(event) {
-    if (event.data == "\uD83D\uDC93") {
-      return;
-    }
-    try {
-      processMessage(JSON.parse(event.data));
-    } catch (ex) {
-      if (options.warn) {
-        console.warn("Invalid HMR message: " + event.data + "\n" + ex);
-      }
-    }
-  }
-}
-
-// the reporter needs to be a singleton on the page
-// in case the client is being used by multiple bundles
-// we only want to report once.
-// all the errors will go to all clients
-var singletonKey = '__webpack_hot_middleware_reporter__';
-var reporter;
-if (typeof window !== 'undefined') {
-  if (!window[singletonKey]) {
-    window[singletonKey] = createReporter();
-  }
-  reporter = window[singletonKey];
-}
-
-function createReporter() {
-  var strip = __webpack_require__(13);
-
-  var overlay;
-  if (typeof document !== 'undefined' && options.overlay) {
-    overlay = __webpack_require__(15);
-  }
-
-  var styles = {
-    errors: "color: #ff0000;",
-    warnings: "color: #5c3b00;"
-  };
-  var previousProblems = null;
-  function log(type, obj) {
-    var newProblems = obj[type].map(function(msg) { return strip(msg); }).join('\n');
-    if (previousProblems == newProblems) {
-      return;
-    } else {
-      previousProblems = newProblems;
-    }
-
-    var style = styles[type];
-    var name = obj.name ? "'" + obj.name + "' " : "";
-    var title = "[HMR] bundle " + name + "has " + obj[type].length + " " + type;
-    // NOTE: console.warn or console.error will print the stack trace
-    // which isn't helpful here, so using console.log to escape it.
-    if (console.group && console.groupEnd) {
-      console.group("%c" + title, style);
-      console.log("%c" + newProblems, style);
-      console.groupEnd();
-    } else {
-      console.log(
-        "%c" + title + "\n\t%c" + newProblems.replace(/\n/g, "\n\t"),
-        style + "font-weight: bold;",
-        style + "font-weight: normal;"
-      );
-    }
-  }
-
-  return {
-    cleanProblemsCache: function () {
-      previousProblems = null;
-    },
-    problems: function(type, obj) {
-      if (options.warn) {
-        log(type, obj);
-      }
-      if (overlay && type !== 'warnings') overlay.showProblems(type, obj[type]);
-    },
-    success: function() {
-      if (overlay) overlay.clear();
-    },
-    useCustomOverlay: function(customOverlay) {
-      overlay = customOverlay;
-    }
-  };
-}
-
-var processUpdate = __webpack_require__(16);
-
-var customHandler;
-var subscribeAllHandler;
-function processMessage(obj) {
-  switch(obj.action) {
-    case "building":
-      if (options.log) {
-        console.log(
-          "[HMR] bundle " + (obj.name ? "'" + obj.name + "' " : "") +
-          "rebuilding"
-        );
-      }
-      break;
-    case "built":
-      if (options.log) {
-        console.log(
-          "[HMR] bundle " + (obj.name ? "'" + obj.name + "' " : "") +
-          "rebuilt in " + obj.time + "ms"
-        );
-      }
-      // fall through
-    case "sync":
-      if (obj.name && options.name && obj.name !== options.name) {
-        return;
-      }
-      if (obj.errors.length > 0) {
-        if (reporter) reporter.problems('errors', obj);
-      } else {
-        if (reporter) {
-          if (obj.warnings.length > 0) {
-            reporter.problems('warnings', obj);
-          } else {
-            reporter.cleanProblemsCache();
-          }
-          reporter.success();
-        }
-        processUpdate(obj.hash, obj.modules, options);
-      }
-      break;
-    default:
-      if (customHandler) {
-        customHandler(obj);
-      }
-  }
-
-  if (subscribeAllHandler) {
-    subscribeAllHandler(obj);
-  }
-}
-
-if (module) {
-  module.exports = {
-    subscribeAll: function subscribeAll(handler) {
-      subscribeAllHandler = handler;
-    },
-    subscribe: function subscribe(handler) {
-      customHandler = handler;
-    },
-    useCustomOverlay: function useCustomOverlay(customOverlay) {
-      if (reporter) reporter.useCustomOverlay(customOverlay);
-    }
-  };
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, "?path=%2F__webpack_hmr", __webpack_require__(18)(module)))
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = ansiHTML
-
-// Reference to https://github.com/sindresorhus/ansi-regex
-var _regANSI = /(?:(?:\u001b\[)|\u009b)(?:(?:[0-9]{1,3})?(?:(?:;[0-9]{0,3})*)?[A-M|f-m])|\u001b[A-M]/
-
-var _defColors = {
-  reset: ['fff', '000'], // [FOREGROUD_COLOR, BACKGROUND_COLOR]
-  black: '000',
-  red: 'ff0000',
-  green: '209805',
-  yellow: 'e8bf03',
-  blue: '0000ff',
-  magenta: 'ff00ff',
-  cyan: '00ffee',
-  lightgrey: 'f0f0f0',
-  darkgrey: '888'
-}
-var _styles = {
-  30: 'black',
-  31: 'red',
-  32: 'green',
-  33: 'yellow',
-  34: 'blue',
-  35: 'magenta',
-  36: 'cyan',
-  37: 'lightgrey'
-}
-var _openTags = {
-  '1': 'font-weight:bold', // bold
-  '2': 'opacity:0.5', // dim
-  '3': '<i>', // italic
-  '4': '<u>', // underscore
-  '8': 'display:none', // hidden
-  '9': '<del>' // delete
-}
-var _closeTags = {
-  '23': '</i>', // reset italic
-  '24': '</u>', // reset underscore
-  '29': '</del>' // reset delete
-}
-
-;[0, 21, 22, 27, 28, 39, 49].forEach(function (n) {
-  _closeTags[n] = '</span>'
-})
-
-/**
- * Converts text with ANSI color codes to HTML markup.
- * @param {String} text
- * @returns {*}
- */
-function ansiHTML (text) {
-  // Returns the text if the string has no ANSI escape code.
-  if (!_regANSI.test(text)) {
-    return text
-  }
-
-  // Cache opened sequence.
-  var ansiCodes = []
-  // Replace with markup.
-  var ret = text.replace(/\033\[(\d+)*m/g, function (match, seq) {
-    var ot = _openTags[seq]
-    if (ot) {
-      // If current sequence has been opened, close it.
-      if (!!~ansiCodes.indexOf(seq)) { // eslint-disable-line no-extra-boolean-cast
-        ansiCodes.pop()
-        return '</span>'
-      }
-      // Open tag.
-      ansiCodes.push(seq)
-      return ot[0] === '<' ? ot : '<span style="' + ot + ';">'
-    }
-
-    var ct = _closeTags[seq]
-    if (ct) {
-      // Pop sequence
-      ansiCodes.pop()
-      return ct
-    }
-    return ''
-  })
-
-  // Make sure tags are closed.
-  var l = ansiCodes.length
-  ;(l > 0) && (ret += Array(l + 1).join('</span>'))
-
-  return ret
-}
-
-/**
- * Customize colors.
- * @param {Object} colors reference to _defColors
- */
-ansiHTML.setColors = function (colors) {
-  if (typeof colors !== 'object') {
-    throw new Error('`colors` parameter must be an Object.')
-  }
-
-  var _finalColors = {}
-  for (var key in _defColors) {
-    var hex = colors.hasOwnProperty(key) ? colors[key] : null
-    if (!hex) {
-      _finalColors[key] = _defColors[key]
-      continue
-    }
-    if ('reset' === key) {
-      if (typeof hex === 'string') {
-        hex = [hex]
-      }
-      if (!Array.isArray(hex) || hex.length === 0 || hex.some(function (h) {
-        return typeof h !== 'string'
-      })) {
-        throw new Error('The value of `' + key + '` property must be an Array and each item could only be a hex string, e.g.: FF0000')
-      }
-      var defHexColor = _defColors[key]
-      if (!hex[0]) {
-        hex[0] = defHexColor[0]
-      }
-      if (hex.length === 1 || !hex[1]) {
-        hex = [hex[0]]
-        hex.push(defHexColor[1])
-      }
-
-      hex = hex.slice(0, 2)
-    } else if (typeof hex !== 'string') {
-      throw new Error('The value of `' + key + '` property must be a hex string, e.g.: FF0000')
-    }
-    _finalColors[key] = hex
-  }
-  _setTags(_finalColors)
-}
-
-/**
- * Reset colors.
- */
-ansiHTML.reset = function () {
-  _setTags(_defColors)
-}
-
-/**
- * Expose tags, including open and close.
- * @type {Object}
- */
-ansiHTML.tags = {}
-
-if (Object.defineProperty) {
-  Object.defineProperty(ansiHTML.tags, 'open', {
-    get: function () { return _openTags }
-  })
-  Object.defineProperty(ansiHTML.tags, 'close', {
-    get: function () { return _closeTags }
-  })
-} else {
-  ansiHTML.tags.open = _openTags
-  ansiHTML.tags.close = _closeTags
-}
-
-function _setTags (colors) {
-  // reset all
-  _openTags['0'] = 'font-weight:normal;opacity:1;color:#' + colors.reset[0] + ';background:#' + colors.reset[1]
-  // inverse
-  _openTags['7'] = 'color:#' + colors.reset[1] + ';background:#' + colors.reset[0]
-  // dark grey
-  _openTags['90'] = 'color:#' + colors.darkgrey
-
-  for (var code in _styles) {
-    var color = _styles[code]
-    var oriColor = colors[color] || '000'
-    _openTags[code] = 'color:#' + oriColor
-    code = parseInt(code)
-    _openTags[(code + 10).toString()] = 'background:#' + oriColor
-  }
-}
-
-ansiHTML.reset()
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-module.exports = function () {
-	return /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-PRZcf-nqry=><]/g;
-};
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = {
-  XmlEntities: __webpack_require__(9),
-  Html4Entities: __webpack_require__(8),
-  Html5Entities: __webpack_require__(0),
-  AllHtmlEntities: __webpack_require__(0)
-};
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-var HTML_ALPHA = ['apos', 'nbsp', 'iexcl', 'cent', 'pound', 'curren', 'yen', 'brvbar', 'sect', 'uml', 'copy', 'ordf', 'laquo', 'not', 'shy', 'reg', 'macr', 'deg', 'plusmn', 'sup2', 'sup3', 'acute', 'micro', 'para', 'middot', 'cedil', 'sup1', 'ordm', 'raquo', 'frac14', 'frac12', 'frac34', 'iquest', 'Agrave', 'Aacute', 'Acirc', 'Atilde', 'Auml', 'Aring', 'Aelig', 'Ccedil', 'Egrave', 'Eacute', 'Ecirc', 'Euml', 'Igrave', 'Iacute', 'Icirc', 'Iuml', 'ETH', 'Ntilde', 'Ograve', 'Oacute', 'Ocirc', 'Otilde', 'Ouml', 'times', 'Oslash', 'Ugrave', 'Uacute', 'Ucirc', 'Uuml', 'Yacute', 'THORN', 'szlig', 'agrave', 'aacute', 'acirc', 'atilde', 'auml', 'aring', 'aelig', 'ccedil', 'egrave', 'eacute', 'ecirc', 'euml', 'igrave', 'iacute', 'icirc', 'iuml', 'eth', 'ntilde', 'ograve', 'oacute', 'ocirc', 'otilde', 'ouml', 'divide', 'Oslash', 'ugrave', 'uacute', 'ucirc', 'uuml', 'yacute', 'thorn', 'yuml', 'quot', 'amp', 'lt', 'gt', 'oelig', 'oelig', 'scaron', 'scaron', 'yuml', 'circ', 'tilde', 'ensp', 'emsp', 'thinsp', 'zwnj', 'zwj', 'lrm', 'rlm', 'ndash', 'mdash', 'lsquo', 'rsquo', 'sbquo', 'ldquo', 'rdquo', 'bdquo', 'dagger', 'dagger', 'permil', 'lsaquo', 'rsaquo', 'euro', 'fnof', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigmaf', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'thetasym', 'upsih', 'piv', 'bull', 'hellip', 'prime', 'prime', 'oline', 'frasl', 'weierp', 'image', 'real', 'trade', 'alefsym', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'crarr', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'forall', 'part', 'exist', 'empty', 'nabla', 'isin', 'notin', 'ni', 'prod', 'sum', 'minus', 'lowast', 'radic', 'prop', 'infin', 'ang', 'and', 'or', 'cap', 'cup', 'int', 'there4', 'sim', 'cong', 'asymp', 'ne', 'equiv', 'le', 'ge', 'sub', 'sup', 'nsub', 'sube', 'supe', 'oplus', 'otimes', 'perp', 'sdot', 'lceil', 'rceil', 'lfloor', 'rfloor', 'lang', 'rang', 'loz', 'spades', 'clubs', 'hearts', 'diams'];
-var HTML_CODES = [39, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 34, 38, 60, 62, 338, 339, 352, 353, 376, 710, 732, 8194, 8195, 8201, 8204, 8205, 8206, 8207, 8211, 8212, 8216, 8217, 8218, 8220, 8221, 8222, 8224, 8225, 8240, 8249, 8250, 8364, 402, 913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 931, 932, 933, 934, 935, 936, 937, 945, 946, 947, 948, 949, 950, 951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967, 968, 969, 977, 978, 982, 8226, 8230, 8242, 8243, 8254, 8260, 8472, 8465, 8476, 8482, 8501, 8592, 8593, 8594, 8595, 8596, 8629, 8656, 8657, 8658, 8659, 8660, 8704, 8706, 8707, 8709, 8711, 8712, 8713, 8715, 8719, 8721, 8722, 8727, 8730, 8733, 8734, 8736, 8743, 8744, 8745, 8746, 8747, 8756, 8764, 8773, 8776, 8800, 8801, 8804, 8805, 8834, 8835, 8836, 8838, 8839, 8853, 8855, 8869, 8901, 8968, 8969, 8970, 8971, 9001, 9002, 9674, 9824, 9827, 9829, 9830];
-
-var alphaIndex = {};
-var numIndex = {};
-
-var i = 0;
-var length = HTML_ALPHA.length;
-while (i < length) {
-    var a = HTML_ALPHA[i];
-    var c = HTML_CODES[i];
-    alphaIndex[a] = String.fromCharCode(c);
-    numIndex[c] = a;
-    i++;
-}
-
-/**
- * @constructor
- */
-function Html4Entities() {}
-
-/**
- * @param {String} str
- * @returns {String}
- */
-Html4Entities.prototype.decode = function(str) {
-    if (str.length === 0) {
-        return '';
-    }
-    return str.replace(/&(#?[\w\d]+);?/g, function(s, entity) {
-        var chr;
-        if (entity.charAt(0) === "#") {
-            var code = entity.charAt(1).toLowerCase() === 'x' ?
-                parseInt(entity.substr(2), 16) :
-                parseInt(entity.substr(1));
-
-            if (!(isNaN(code) || code < -32768 || code > 65535)) {
-                chr = String.fromCharCode(code);
-            }
-        } else {
-            chr = alphaIndex[entity];
-        }
-        return chr || s;
-    });
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
-Html4Entities.decode = function(str) {
-    return new Html4Entities().decode(str);
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
-Html4Entities.prototype.encode = function(str) {
-    var strLength = str.length;
-    if (strLength === 0) {
-        return '';
-    }
-    var result = '';
-    var i = 0;
-    while (i < strLength) {
-        var alpha = numIndex[str.charCodeAt(i)];
-        result += alpha ? "&" + alpha + ";" : str.charAt(i);
-        i++;
-    }
-    return result;
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
-Html4Entities.encode = function(str) {
-    return new Html4Entities().encode(str);
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
-Html4Entities.prototype.encodeNonUTF = function(str) {
-    var strLength = str.length;
-    if (strLength === 0) {
-        return '';
-    }
-    var result = '';
-    var i = 0;
-    while (i < strLength) {
-        var cc = str.charCodeAt(i);
-        var alpha = numIndex[cc];
-        if (alpha) {
-            result += "&" + alpha + ";";
-        } else if (cc < 32 || cc > 126) {
-            result += "&#" + cc + ";";
-        } else {
-            result += str.charAt(i);
-        }
-        i++;
-    }
-    return result;
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
-Html4Entities.encodeNonUTF = function(str) {
-    return new Html4Entities().encodeNonUTF(str);
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
-Html4Entities.prototype.encodeNonASCII = function(str) {
-    var strLength = str.length;
-    if (strLength === 0) {
-        return '';
-    }
-    var result = '';
-    var i = 0;
-    while (i < strLength) {
-        var c = str.charCodeAt(i);
-        if (c <= 255) {
-            result += str[i++];
-            continue;
-        }
-        result += '&#' + c + ';';
-        i++;
-    }
-    return result;
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
-Html4Entities.encodeNonASCII = function(str) {
-    return new Html4Entities().encodeNonASCII(str);
-};
-
-module.exports = Html4Entities;
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-var ALPHA_INDEX = {
-    '&lt': '<',
-    '&gt': '>',
-    '&quot': '"',
-    '&apos': '\'',
-    '&amp': '&',
-    '&lt;': '<',
-    '&gt;': '>',
-    '&quot;': '"',
-    '&apos;': '\'',
-    '&amp;': '&'
-};
-
-var CHAR_INDEX = {
-    60: 'lt',
-    62: 'gt',
-    34: 'quot',
-    39: 'apos',
-    38: 'amp'
-};
-
-var CHAR_S_INDEX = {
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    '\'': '&apos;',
-    '&': '&amp;'
-};
-
-/**
- * @constructor
- */
-function XmlEntities() {}
-
-/**
- * @param {String} str
- * @returns {String}
- */
-XmlEntities.prototype.encode = function(str) {
-    if (str.length === 0) {
-        return '';
-    }
-    return str.replace(/<|>|"|'|&/g, function(s) {
-        return CHAR_S_INDEX[s];
-    });
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
- XmlEntities.encode = function(str) {
-    return new XmlEntities().encode(str);
- };
-
-/**
- * @param {String} str
- * @returns {String}
- */
-XmlEntities.prototype.decode = function(str) {
-    if (str.length === 0) {
-        return '';
-    }
-    return str.replace(/&#?[0-9a-zA-Z]+;?/g, function(s) {
-        if (s.charAt(1) === '#') {
-            var code = s.charAt(2).toLowerCase() === 'x' ?
-                parseInt(s.substr(3), 16) :
-                parseInt(s.substr(2));
-
-            if (isNaN(code) || code < -32768 || code > 65535) {
-                return '';
-            }
-            return String.fromCharCode(code);
-        }
-        return ALPHA_INDEX[s] || s;
-    });
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
- XmlEntities.decode = function(str) {
-    return new XmlEntities().decode(str);
- };
-
-/**
- * @param {String} str
- * @returns {String}
- */
-XmlEntities.prototype.encodeNonUTF = function(str) {
-    var strLength = str.length;
-    if (strLength === 0) {
-        return '';
-    }
-    var result = '';
-    var i = 0;
-    while (i < strLength) {
-        var c = str.charCodeAt(i);
-        var alpha = CHAR_INDEX[c];
-        if (alpha) {
-            result += "&" + alpha + ";";
-            i++;
-            continue;
-        }
-        if (c < 32 || c > 126) {
-            result += '&#' + c + ';';
-        } else {
-            result += str.charAt(i);
-        }
-        i++;
-    }
-    return result;
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
- XmlEntities.encodeNonUTF = function(str) {
-    return new XmlEntities().encodeNonUTF(str);
- };
-
-/**
- * @param {String} str
- * @returns {String}
- */
-XmlEntities.prototype.encodeNonASCII = function(str) {
-    var strLenght = str.length;
-    if (strLenght === 0) {
-        return '';
-    }
-    var result = '';
-    var i = 0;
-    while (i < strLenght) {
-        var c = str.charCodeAt(i);
-        if (c <= 255) {
-            result += str[i++];
-            continue;
-        }
-        result += '&#' + c + ';';
-        i++;
-    }
-    return result;
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
- XmlEntities.encodeNonASCII = function(str) {
-    return new XmlEntities().encodeNonASCII(str);
- };
-
-module.exports = XmlEntities;
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
-// If obj.hasOwnProperty has been overridden, then calling
-// obj.hasOwnProperty(prop) will break.
-// See: https://github.com/joyent/node/issues/1707
-function hasOwnProperty(obj, prop) {
-  return Object.prototype.hasOwnProperty.call(obj, prop);
-}
-
-module.exports = function(qs, sep, eq, options) {
-  sep = sep || '&';
-  eq = eq || '=';
-  var obj = {};
-
-  if (typeof qs !== 'string' || qs.length === 0) {
-    return obj;
-  }
-
-  var regexp = /\+/g;
-  qs = qs.split(sep);
-
-  var maxKeys = 1000;
-  if (options && typeof options.maxKeys === 'number') {
-    maxKeys = options.maxKeys;
-  }
-
-  var len = qs.length;
-  // maxKeys <= 0 means that we should not limit keys count
-  if (maxKeys > 0 && len > maxKeys) {
-    len = maxKeys;
-  }
-
-  for (var i = 0; i < len; ++i) {
-    var x = qs[i].replace(regexp, '%20'),
-        idx = x.indexOf(eq),
-        kstr, vstr, k, v;
-
-    if (idx >= 0) {
-      kstr = x.substr(0, idx);
-      vstr = x.substr(idx + 1);
-    } else {
-      kstr = x;
-      vstr = '';
-    }
-
-    k = decodeURIComponent(kstr);
-    v = decodeURIComponent(vstr);
-
-    if (!hasOwnProperty(obj, k)) {
-      obj[k] = v;
-    } else if (isArray(obj[k])) {
-      obj[k].push(v);
-    } else {
-      obj[k] = [obj[k], v];
-    }
-  }
-
-  return obj;
-};
-
-var isArray = Array.isArray || function (xs) {
-  return Object.prototype.toString.call(xs) === '[object Array]';
-};
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
-var stringifyPrimitive = function(v) {
-  switch (typeof v) {
-    case 'string':
-      return v;
-
-    case 'boolean':
-      return v ? 'true' : 'false';
-
-    case 'number':
-      return isFinite(v) ? v : '';
-
-    default:
-      return '';
-  }
-};
-
-module.exports = function(obj, sep, eq, name) {
-  sep = sep || '&';
-  eq = eq || '=';
-  if (obj === null) {
-    obj = undefined;
-  }
-
-  if (typeof obj === 'object') {
-    return map(objectKeys(obj), function(k) {
-      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
-      if (isArray(obj[k])) {
-        return map(obj[k], function(v) {
-          return ks + encodeURIComponent(stringifyPrimitive(v));
-        }).join(sep);
-      } else {
-        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
-      }
-    }).join(sep);
-
-  }
-
-  if (!name) return '';
-  return encodeURIComponent(stringifyPrimitive(name)) + eq +
-         encodeURIComponent(stringifyPrimitive(obj));
-};
-
-var isArray = Array.isArray || function (xs) {
-  return Object.prototype.toString.call(xs) === '[object Array]';
-};
-
-function map (xs, f) {
-  if (xs.map) return xs.map(f);
-  var res = [];
-  for (var i = 0; i < xs.length; i++) {
-    res.push(f(xs[i], i));
-  }
-  return res;
-}
-
-var objectKeys = Object.keys || function (obj) {
-  var res = [];
-  for (var key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
-  }
-  return res;
-};
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.decode = exports.parse = __webpack_require__(10);
-exports.encode = exports.stringify = __webpack_require__(11);
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var ansiRegex = __webpack_require__(6)();
-
-module.exports = function (str) {
-	return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
-};
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(16)))
 
 /***/ }),
 /* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
-  * vue-class-component v5.0.0
-  * (c) 2015-2017 Evan You
-  * @license MIT
-  */
-
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var Vue = _interopDefault(__webpack_require__(2));
-
-function createDecorator(factory) {
-    return function (_, key, index) {
-        if (typeof index !== 'number') {
-            index = undefined;
-        }
-        $decoratorQueue.push(function (options) { return factory(options, key, index); });
-    };
-}
-function warn(message) {
-    if (typeof console !== 'undefined') {
-        console.warn('[vue-class-component] ' + message);
-    }
-}
-
-function collectDataFromConstructor(vm, Component) {
-    Component.prototype._init = function () {
-        var _this = this;
-        var keys = Object.getOwnPropertyNames(vm);
-        if (vm.$options.props) {
-            for (var key in vm.$options.props) {
-                if (!vm.hasOwnProperty(key)) {
-                    keys.push(key);
-                }
-            }
-        }
-        keys.forEach(function (key) {
-            if (key.charAt(0) !== '_') {
-                Object.defineProperty(_this, key, {
-                    get: function () { return vm[key]; },
-                    set: function (value) { return vm[key] = value; }
-                });
-            }
-        });
-    };
-    var data = new Component();
-    var plainData = {};
-    Object.keys(data).forEach(function (key) {
-        if (data[key] !== undefined) {
-            plainData[key] = data[key];
-        }
-    });
-    if (process.env.NODE_ENV !== 'production') {
-        if (!(Component.prototype instanceof Vue) && Object.keys(plainData).length > 0) {
-            warn('Component class must inherit Vue or its descendant class ' +
-                'when class property is used.');
-        }
-    }
-    return plainData;
-}
-
-var $internalHooks = [
-    'data',
-    'beforeCreate',
-    'created',
-    'beforeMount',
-    'mounted',
-    'beforeDestroy',
-    'destroyed',
-    'beforeUpdate',
-    'updated',
-    'activated',
-    'deactivated',
-    'render'
-];
-var $decoratorQueue = [];
-function componentFactory(Component, options) {
-    if (options === void 0) { options = {}; }
-    options.name = options.name || Component._componentTag;
-    var proto = Component.prototype;
-    Object.getOwnPropertyNames(proto).forEach(function (key) {
-        if (key === 'constructor') {
-            return;
-        }
-        if ($internalHooks.indexOf(key) > -1) {
-            options[key] = proto[key];
-            return;
-        }
-        var descriptor = Object.getOwnPropertyDescriptor(proto, key);
-        if (typeof descriptor.value === 'function') {
-            (options.methods || (options.methods = {}))[key] = descriptor.value;
-        }
-        else if (descriptor.get || descriptor.set) {
-            (options.computed || (options.computed = {}))[key] = {
-                get: descriptor.get,
-                set: descriptor.set
-            };
-        }
-    });
-    (options.mixins || (options.mixins = [])).push({
-        data: function () {
-            return collectDataFromConstructor(this, Component);
-        }
-    });
-    $decoratorQueue.forEach(function (fn) { return fn(options); });
-    $decoratorQueue = [];
-    var superProto = Object.getPrototypeOf(Component.prototype);
-    var Super = superProto instanceof Vue
-        ? superProto.constructor
-        : Vue;
-    return Super.extend(options);
-}
-
-function Component(options) {
-    if (typeof options === 'function') {
-        return componentFactory(options);
-    }
-    return function (Component) {
-        return componentFactory(Component, options);
-    };
-}
-(function (Component) {
-    function registerHooks(keys) {
-        $internalHooks.push.apply($internalHooks, keys);
-    }
-    Component.registerHooks = registerHooks;
-})(Component || (Component = {}));
-var Component$1 = Component;
-
-exports['default'] = Component$1;
-exports.createDecorator = createDecorator;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*eslint-env browser*/
@@ -11494,7 +11379,7 @@ for (var key in styles) {
   clientOverlay.style[key] = styles[key];
 }
 
-var ansiHTML = __webpack_require__(5);
+var ansiHTML = __webpack_require__(3);
 var colors = {
   reset: ['transparent', 'transparent'],
   black: '181818',
@@ -11509,7 +11394,7 @@ var colors = {
 };
 ansiHTML.setColors(colors);
 
-var Entities = __webpack_require__(7).AllHtmlEntities;
+var Entities = __webpack_require__(5).AllHtmlEntities;
 var entities = new Entities();
 
 exports.showProblems =
@@ -11550,7 +11435,7 @@ function problemType (type) {
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -11688,7 +11573,7 @@ module.exports = function(hash, moduleMap, options) {
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports) {
 
 var g;
@@ -11715,7 +11600,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -11743,11 +11628,11 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(4);
-module.exports = __webpack_require__(3);
+__webpack_require__(2);
+module.exports = __webpack_require__(1);
 
 
 /***/ })

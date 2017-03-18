@@ -31,5 +31,10 @@ namespace MyProject.Controllers
         {
             return View();
         }
+
+        public IActionResult VueLab()
+        {
+            return View();
+        }
     }
 }
