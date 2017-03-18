@@ -3,12 +3,13 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "vue": "^2.2.2",
+    "vue": "^2.2.4",
     "vuex": "^2.2.1",
+    "vue-router": "^2.3.0",
     "vue-class-component": "^5.0.0"
   },
   "devDependencies": {
-    "ts-loader": "^2.0.1",
+    "ts-loader": "^2.0.2",
     "aspnet-webpack": "^1.0.28",
     "typescript": "^2.2.1",
     "webpack": "^2.2.1",
